@@ -3,6 +3,7 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:plugin_common/plugin_common.dart';
+import 'package:plugin_common/plugin_status_bar.dart';
 
 void main() => runApp(MyApp());
 
@@ -25,7 +26,7 @@ class _MyAppState extends State<MyApp> {
     String platformVersion;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
-      platformVersion = await PluginCommon.platformVersion;
+      //platformVersion = await PluginCommon.platformVersion;
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
     }
@@ -47,8 +48,21 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: const Text('Plugin example app'),
         ),
-        body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+        body: Column(
+          children: <Widget>[
+            InkWell(
+              child: Text('吐司'),
+              onTap: () {
+                PluginCommon().toast("测试吐司");
+              },
+            ),
+            InkWell(
+              child: Text('状态栏'),
+              onTap: () {
+                PluginStatusBar().setStateBarColor('#00ffff');
+              },
+            ),
+          ],
         ),
       ),
     );
